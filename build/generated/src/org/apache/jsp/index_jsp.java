@@ -57,18 +57,23 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
             String userLogin = "";
             Cookie[] cookies = request.getCookies();
             String waktuLogin = "";
+            String keterangan = "";
             java.util.Date saatIni = new java.util.Date();
             java.text.SimpleDateFormat waktu = new java.text.SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
             if (!session.isNew()) {
                 try {
                     userLogin = session.getAttribute("userLogin").toString();
                     waktuLogin = session.getAttribute("waktuLogin").toString();
+                   
                 } catch (Exception ex) {
 
                 }
             }
             if ((cookies != null) && (cookies.length > 0)) {
                 for (int i = 0; i < cookies.length; i++) {
+                if(cookies[i].getName().equalsIgnoreCase("keterangan")){
+                keterangan = cookies[i].getValue();
+            }
         
       out.write("\n");
       out.write("<!--        Data cookie ke-");
@@ -81,6 +86,7 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write(" data: ");
       out.print(cookies[i].getValue());
       out.write("<br>    -->\n");
+      out.write("\n");
       out.write("        ");
 
                 }
@@ -88,13 +94,21 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
             if (!userLogin.equals("")) {
         
       out.write("\n");
+      out.write("        <div class=\"w-full max-w-xs m-auto flex h-screen\">\n");
+      out.write("            <div class=\"m-auto\">\n");
+      out.write("                <div class=\" bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4\">\n");
       out.write("        <h1>Dashboard</h1>\n");
       out.write("        <p>Selamat datang, <strong>");
       out.print(userLogin);
       out.write("</strong></p>\n");
       out.write("        <p>Anda login terakhir kali pada <strong>");
       out.print(waktuLogin);
-      out.write("</strong></p>\n");
+      out.write("</strong></p>        \n");
+      out.write("                    \n");
+      out.write("                </div>\n");
+      out.write("            </div>\n");
+      out.write("        </div>\n");
+      out.write("        \n");
       out.write("        ");
 
         } else {
@@ -105,6 +119,26 @@ public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <div class=\"m-auto\">\n");
       out.write("            <form class=\"bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4\" action=\"validasi.jsp\" method=\"post\">\n");
       out.write("                <h1 class=\"text-3xl font-bold text-clifford mb-6\">Login page</h1>\n");
+      out.write("                ");
+if(!keterangan.equals("")){
+                    
+      out.write("\n");
+      out.write("                    <div id=\"error-alert\" class=\"flex p-4 mb-4 bg-red-100 rounded-lg dark:bg-red-200\" role=\"alert\">\n");
+      out.write("  <svg class=\"flex-shrink-0 w-5 h-5 text-red-700 dark:text-red-800\" fill=\"currentColor\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" d=\"M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z\" clip-rule=\"evenodd\"></path></svg>\n");
+      out.write("  <div class=\"ml-3 text-sm font-medium text-red-700 dark:text-red-800\">\n");
+      out.write("  ");
+      out.print( keterangan);
+      out.write("\n");
+      out.write("  </div>\n");
+      out.write("  <button type=\"button\" class=\"ml-auto -mx-1.5 -my-1.5 bg-red-100 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-red-200 dark:text-red-600 dark:hover:bg-red-300\" data-dismiss-target=\"#error-alert\" aria-label=\"Close\">\n");
+      out.write("    <span class=\"sr-only\">Close</span>\n");
+      out.write("    <svg class=\"w-5 h-5\" fill=\"currentColor\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" d=\"M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z\" clip-rule=\"evenodd\"></path></svg>\n");
+      out.write("  </button>\n");
+      out.write("</div>\n");
+      out.write("                ");
+
+                    }
+                
       out.write("\n");
       out.write("                <div class=\"mb-4\">\n");
       out.write("                    <label class=\"block text-gray-700 text-sm font-bold mb-2\" for=\"username\">\n");
